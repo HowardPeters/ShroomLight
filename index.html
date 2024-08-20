@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ESP32 Web BLE App</title>
+    <title>Shroomlight</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link
     rel="shortcut icon"
@@ -29,6 +29,7 @@
         h2 {
             color: white;
             font-size: 1.2rem;
+            margin: 10px 0;
         }
         .topnav {
             overflow: hidden;
@@ -56,8 +57,6 @@
             display: grid;
             grid-gap: 0.5rem;
             grid-template-rows: auto auto;
-            overflow: hidden;
-            overscroll-behavior: none;
         }
         .card {
             background-color: black;
@@ -66,10 +65,16 @@
         button {
             color: white;
             padding: 4px 8px;
-            margin: 2px 0;
+            margin: 0px 2px;
             border: none;
             cursor: pointer;
             border-radius: 4px;
+            height: 28px;
+        }
+
+        .menu {
+            float: left;
+            margin: 10px 5px;
         }
 
         .onButton{
@@ -89,20 +94,41 @@
         }
 
         .disconnectButton{
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 333334 333334' width='24px' fill-rule='evenodd' %3E%3Cpath d='M153552 133653V75938l69486 54894-38079 34878 38079 35856-70083 55219 651-60916-29508 28858-13344-12693 42798-39978v-14266l-42526-39652 13343-13615 29183 29183v-54zM166667 0c46023 0 87690 18656 117850 48817 30161 30160 48817 71828 48817 117850 0 46023-18656 87690-48817 117850-30160 30161-71828 48817-117850 48817-46023 0-87690-18656-117850-48817C18656 254357 0 212689 0 166667c0-46023 18656-87690 48817-117850C78977 18656 120645 0 166667 0zm100919 65748c-25826-25826-61507-41802-100919-41802S91574 39921 65748 65748c-25826 25826-41802 61507-41802 100919s15975 75093 41802 100919c25826 25826 61507 41802 100919 41802s75093-15975 100919-41802c25826-25826 41802-61507 41802-100919s-15975-75093-41802-100919zm-95374 48812l19690 16544-19690 15839v-32383zm0 70733l19690 16544-19690 15839v-32383z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
             background-color: #d13a30;
+            width: 34px;
         }
 
-        .reconnectButton{
-            background-color: #4224af;
+        .settingsButton{
+            background-image: url("data:image/svg+xml,%3Csvg id='Layer_1' data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120' width='24px' fill='white'%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill-rule:evenodd;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Egear%3C/title%3E%3Cpath class='cls-1' d='M73.48,15.84A46.87,46.87,0,0,1,84.87,21L91,14.84a7.6,7.6,0,0,1,10.72,0L108,21.15a7.6,7.6,0,0,1,0,10.72l-6.6,6.6a46.6,46.6,0,0,1,4.34,10.93h9.52A7.6,7.6,0,0,1,122.88,57V65.9a7.6,7.6,0,0,1-7.58,7.58h-9.61a46.83,46.83,0,0,1-4.37,10.81L108,91a7.6,7.6,0,0,1,0,10.72L101.73,108A7.61,7.61,0,0,1,91,108l-6.34-6.35a47.22,47.22,0,0,1-11.19,5v8.59a7.6,7.6,0,0,1-7.58,7.58H57a7.6,7.6,0,0,1-7.58-7.58v-7.76a47.39,47.39,0,0,1-12.35-4.68L31.87,108a7.62,7.62,0,0,1-10.72,0l-6.31-6.31a7.61,7.61,0,0,1,0-10.72l4.72-4.72A47.38,47.38,0,0,1,14,73.48H7.58A7.6,7.6,0,0,1,0,65.9V57A7.6,7.6,0,0,1,7.58,49.4h6.35a47.2,47.2,0,0,1,5.51-12.94l-4.6-4.59a7.62,7.62,0,0,1,0-10.72l6.31-6.31a7.6,7.6,0,0,1,10.72,0l5,5A46.6,46.6,0,0,1,49.4,15V7.58A7.6,7.6,0,0,1,57,0H65.9a7.6,7.6,0,0,1,7.58,7.58v8.26ZM59.86,36.68a24.6,24.6,0,1,1-24.6,24.59,24.59,24.59,0,0,1,24.6-24.59Z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: rgb(82, 81, 81);
+            width: 34px;
+        }
+
+        .reloadButton{
+            background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 122.04 122.88' width='24px' fill='white' style='enable-background:new 0 0 122.04 122.88' xml:space='preserve'%3E%3Cstyle type='text/css'%3E.st0%7Bfill-rule:evenodd;clip-rule:evenodd;%7D%3C/style%3E%3Cg%3E%3Cpath class='st0' d='M117.31,9.3v39.28H78.03l-4.63,0l3.27-3.28l11.45-11.45c-0.75-0.73-1.54-1.44-2.36-2.11 c-1.08-0.88-2.22-1.72-3.38-2.48l0,0c-6.02-3.93-13.21-6.21-20.94-6.21l-0.01,0v-0.01c-10.59,0-20.18,4.3-27.12,11.24 c-6.94,6.94-11.24,16.53-11.24,27.11h0.01v0.05h-0.01c0,10.59,4.3,20.19,11.24,27.12c6.94,6.94,16.53,11.24,27.11,11.24v-0.01 l0.08,0v0.01c3.7,0,7.39-0.54,10.93-1.59v0c1.95-0.58,3.87-1.33,5.71-2.22c9.39-4.54,16.65-12.8,19.87-22.87l0.43-1.33l23.61,0 l-0.47,2.3l-0.01,0.06v0.01c-0.81,3.84-2.01,7.62-3.54,11.24v0.01c-1.5,3.55-3.37,6.98-5.52,10.19 c-11.02,16.43-29.78,27.26-51.05,27.26h-0.02v-0.01c-16.96,0-32.33-6.88-43.43-17.99v-0.01C6.89,93.77,0.02,78.42,0.01,61.47 l-0.01,0v-0.05l0.01,0c0-16.96,6.88-32.32,18-43.43l0,0C29.11,6.89,44.46,0.02,61.41,0.01V0l0.06,0v0.01 c8.71,0,17.01,1.83,24.51,5.1c1.21,0.53,2.43,1.1,3.6,1.71c5.48,2.83,10.47,6.46,14.83,10.74l9.61-9.61l3.27-3.27V9.3L117.31,9.3 L117.31,9.3z'/%3E%3C/g%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: rgb(82, 81, 81);
+            width: 34px;
         }
 
         .logButton{
-            background-color: #d66a1c;
+            background-color: #723002;
+        }
+
+        .homeButton{
+            background-color: blue;
         }
 
         .gray-label {
             color: #bebebe;
             font-size: 1rem;
+            margin: 8px;
         }
 
         .log-label {
@@ -195,7 +221,42 @@
             background-color:blue;
 
         }
-
+        .statusBar {
+            margin: 10px;
+        }
+        .log-device {
+            color: white;
+            font-size: 0.9rem;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .log-item {
+            display: inline-block;
+            margin: 0 5px;
+            padding: 0 2px;
+            width: 20px;
+            text-align: right;
+        }
+        .log-name {
+            display: inline-block;
+            margin: 0 5px;
+            width: 130px;
+            text-align: left;
+        }
+        .log-listitem {
+            background-color: #080860;
+            margin: 3px 0;
+        }
+        .log-listitem-Selected {
+            background-color: darkmagenta;
+            margin: 5px 0;
+        }
+        .chartCanvas {
+            border:1px solid grey; 
+            background-color:#0A1128; 
+            margin: auto;
+        }
 
 </style>
     <!--<script src="file:///C:/Users/HowardP/Documents/PlatformIO/Projects/ESP32S3%20test/test/iro_min.js"></script>-->
@@ -222,29 +283,30 @@
         
         cp.on("color:change", function(color, changes) {
             rgbString = color.hexString;
-            console.log(rgbString);
+            //console.log(rgbString);
             rgbArray = new Uint8Array([color.red, color.green, color.blue]);
-            writeArrayCharacteristic(RgbLedCharacteristic, rgbArray);
+            //writeArrayCharacteristic(RgbLedCharacteristic, rgbArray);
+            setSingleColourChase();
         });
     </script>
-</head>
+</head> 
 <body onload="startConnection()">
     <div class="topnav">
-        <h1>ShroomLight</h1>
+        <p style="margin:10px 2px 2px 2px;"><strong><span id="bleState" style="color:#d13a30;">Disconnected</span></strong></p>
     </div>
     <div class="content">
         <div class="card-grid">
             <div class="card">
-                <p>
-                    <button id="connectBleButton" class="connectButton"> Connect</button>
-                    <button id="disconnectBleButton" class="disconnectButton"> Disconnect</button>
-                    <!--
-                    <button id="reconnectBleButton" class="reconnectButton"> Reconnect</button>
-                    -->
-                    <button id="logButton" class="logButton">Log</button>
-                    <button id="settingsButton" class="logButton" onClick="settingsClicked()">Settings</button>
-                </p>
-                <p class="gray-label">Status: <strong><span id="bleState" style="color:#d13a30;">Disconnected</span></strong></p>
+                <div >
+                    <button id="connectBleButton" class="disconnectButton menu" style="background-color: #24af37;"></button>
+                    <button id="disconnectBleButton" class="disconnectButton menu"></button>
+                    <button id="connectHButton" class="connectButton menu">H</button>
+                    <button id="settingsButton" class="settingsButton menu" onClick="settingsClicked()"></button>
+                    <button id="reloadButton" class="reloadButton menu"></button>
+                    <button id="logButton" class="logButton menu">Log</button>
+                    <button id="homeButton" class="homeButton menu">Home</button>
+                </div>
+                <p class="gray-label"><span id="statusBar">&nbsp;</span></p>
                 <div id="logPanel" style="display:none;" >
                     <p class="log-label"><span id="log"></span></p>
                 </div>
@@ -264,7 +326,7 @@
                     <div id="colourBox3" class="colourBox" onclick="setColourBox(3)"></div>
                     <div id="colourBox4" class="colourBox" onclick="setColourBox(4)"></div>
                     <div class="small-label" >
-                        Fade Time
+                        Fade BPM
                         <input type="text" id="colourStepTime" class="numberBox" >
                     </div>
                     <div style="height:40px; padding-top: 18px;">
@@ -293,57 +355,74 @@
                     <div>DN<input id="downTime" type="range" min="0" max="255" value="00" class="level" oninput="changeDownTime(this.value)"></div>
                 </div>
             </div>
-            
-            <!--
-            <div class="card">
-                <h2>Fetched Value</h2>
-                <p class="reading"><span id="valueContainer">NaN</span></p>
-                <p class="gray-label">Last reading: <span id="timestamp"></span></p>
-            </div>
-        -->
     </div>
     <div class="card-grid" id="settingsGrid" style="display:none">
-            <div class="card">
-                <h2>Control GPIO 2</h2>
-                <button id="onButton" class="onButton">ON</button>
-                <button id="offButton" class="offButton">OFF</button>
-                <button id="testButton" class="testButton">TEST</button>
-                <p class="gray-label">Last value sent: <span id="valueSent"></span></p>
+        <div class="card">
+            <h2>Settings</h2>
+            <button id="onButton" class="onButton">LOG</button>
+            <button id="offButton" class="offButton">OFF</button>
+            <button id="testButton" class="testButton">TEST</button>
+            <button id="hideButton" class="testButton" onclick="sendHide(1)">HIDE</button>
+            <button id="showButton" class="testButton" onclick="sendHide(0)">SHOW</button>
+            <p>
+                <p class="gray-label">
+                Search name: <input type="text" id="searchBox">
+                </p>
+                <select id="devicesSelect"></select>
+                <button id="forgetBluetoothDevice" class="offButton">Forget Device</button>
+                </p>
                 <p>
-                    <select id="devicesSelect"></select>
-                    <button id="forgetBluetoothDevice" class="offButton">Forget Bluetooth Device</button>
-                  </p>
-                  <p>
-                    <input type="text" id="nameBox">
-                    <button id="setName" class="offButton" onclick="setDeviceName()">Set Device Name</button>
-                  </p>
-                  <p class="gray-label">
-                    Arrival Flash - 
-                    On<input type="text" id="arrivalOnBox" class="numberBox">
-                    Dwell<input type="text" id="arrivalDwellBox" class="numberBox">
-                    <button id="setArrival" class="offButton" onclick="setArrivalTime()">Set</button>
-                  </p>
+                <input type="text" id="nameBox">
+                <button id="setName" class="offButton" onclick="setDeviceName()">Set Device Name</button>
+                </p>
+                <p class="gray-label">
+                Arrival Flash - 
+                On<input type="text" id="arrivalOnBox" class="numberBox">
+                Dwell<input type="text" id="arrivalDwellBox" class="numberBox">
+                </p>
+                <p class="gray-label">
+                Charge Indication - 
+                On<input type="text" id="chargeLEDonBox" class="numberBox">
+                Bright<input type="text" id="chargeLEDbrightBox" class="numberBox">
+                </p><p>
+                <button id="setArrival" class="offButton" onclick="setSettings()">Set</button>
+                </p>
+        </div>
+    </div>
+
+    <div class="card-grid" id="logGrid" style="display:none">
+        <div class="card">
+            <h2>Devices</h2>
+            <div id="rssiChart">
+                <canvas id="chartCanvas" width="300" height="100" class="chartCanvas" style="display: none;"></canvas>
+            </div>
+            <div id="deviceLog">
+                <div class="log-device" style="color: #5f6c6d;">
+                    <div class="log-name" >Name</div>
+                    <div class="log-item" style="width: 35px">Seen</div><div class="log-item">Batt</div><div class="log-item">Sig</div><div class="log-item">Stat</div>
+                </div>
+                <ul id="logList" class="log-device"></ul>
             </div>
         </div>
-        
     </div>
     
 </body>
 <script>
     // DOM Elements
     const connectButton = document.getElementById('connectBleButton');
+    const connectHButton = document.getElementById('connectHButton');
     const disconnectButton = document.getElementById('disconnectBleButton');
     const onButton = document.getElementById('onButton');
     const offButton = document.getElementById('offButton');
     const testButton = document.getElementById('testButton');
     const retrievedValue = document.getElementById('valueContainer');
-    const latestValueSent = document.getElementById('valueSent');
     const bleStateContainer = document.getElementById('bleState');
     const timestampContainer = document.getElementById('timestamp');
     const reconnectButton = document.getElementById('reconnectBleButton');
     const logContainer = document.getElementById('log');
     const logPanel = document.getElementById('logPanel');
     const logButton = document.getElementById('logButton');
+    const homeButton = document.getElementById('homeButton');
     const bpmSlider = document.getElementById('bpmSlider');
     const bpmReading = document.getElementById('bpmReading');
     const slider = document.getElementById("slider");
@@ -356,31 +435,41 @@
     const downTimeRange = document.getElementById("downTime");
     const arrivalOnBox = document.getElementById("arrivalOnBox");
     const arrivalDwellBox = document.getElementById("arrivalDwellBox");
+    const chargeLEDonBox = document.getElementById("chargeLEDonBox");
+    const chargeLEDbrightBox = document.getElementById("chargeLEDbrightBox");
     const colourStepTime = document.getElementById("colourStepTime");
     const master = document.getElementById("master");
     const settingsButton = document.getElementById("settingsButton");
+    const statusBar = document.getElementById("statusBar");
+    const logList = document.getElementById("logList");
+    const chartCanvas = document.getElementById("chartCanvas");
+    const searchBox = document.getElementById("searchBox");
+    const reloadButton = document.getElementById("reloadButton");
+
+    // RSSI chart 
+    const ctx = chartCanvas.getContext("2d");
+    ctx.transform(3, 0, 0, -1, 0, chartCanvas.height);
+    
     
     var bpmValue = 60;
     var mousedown = false;
     var sliderX = 0;
     var mouseX = 0;
     var bpmValue = 60;
-/*     var upTime = 0;
-    var onTime = 0;
-    var downTime = 0; */
     var colChase
-    var chaseArray = new Uint8Array (18);
+    var chaseArray = new Uint8Array (20);
+    var colourArray = new Uint8Array (20);
 
     //Define BLE Device Specs
-    var deviceNamePrefix ='ShroomLight-';
+    var deviceNamePrefix = 'ShroomLight-';
 
     var bleService = '25594900-444a-46ee-9b93-0296c3ae54ec'; 
     //var ledCharacteristic = '25594902-444a-46ee-9b93-0296c3ae54ec'; 
     var sensorCharacteristic = '25594901-444a-46ee-9b93-0296c3ae54ec'; 
-    var RgbLedCharacteristic = '25594903-444a-46ee-9b93-0296c3ae54ec';
+    var StatusCharacteristic = '25594903-444a-46ee-9b93-0296c3ae54ec';
     var RateCharacteristic = '25594904-444a-46ee-9b93-0296c3ae54ec';
     var NameCharacteristic = '25594905-444a-46ee-9b93-0296c3ae54ec';
-    var ArrivalCharacteristic = '25594906-444a-46ee-9b93-0296c3ae54ec';
+    var SettingsCharacteristic = '25594906-444a-46ee-9b93-0296c3ae54ec';
 
     var rateChar;
 
@@ -388,17 +477,13 @@
     var bleServer;
     var bleServiceFound;
     var sensorCharacteristicFound;
+    var deviceConnectionStarted = false;
+    var bluetoothChecker;
 
     function settingsClicked() {
-        if (settingsButton.innerText == "Settings") {
-            settingsButton.innerText = "Main";
-            document.getElementById("mainGrid").style.display = "none";
-            document.getElementById("settingsGrid").style.display = "block";
-        } else {
-            settingsButton.innerText = "Settings";
-            document.getElementById("settingsGrid").style.display = "none";
-            document.getElementById("mainGrid").style.display = "block";
-        }
+        document.getElementById("mainGrid").style.display = "none";
+        document.getElementById("settingsGrid").style.display = "block";
+        document.getElementById("logGrid").style.display = "none";
     }
 
     // Connect Button (search for BLE Devices only if BLE is available)
@@ -408,24 +493,43 @@
         }
     });
 
-    // Disconnect Button
-    disconnectButton.addEventListener('click', disconnectDevice);
-
-    //reconnectButton.addEventListener('click', startConnection);
-    //reconnectButton.addEventListener('click', getPermittedBluetoothDevices);
-    logButton.addEventListener('click', (event) => {
-        if (logPanel.style.display === "none") {
-            logPanel.style.display = "block";
-        } else {
-            logPanel.style.display = "none";
+    connectHButton.addEventListener('click', (event) => {
+        searchBox.value = "H";
+        if (isWebBluetoothEnabled()){
+            connectToDevice();
         }
     });
 
+    // Disconnect Button
+    disconnectButton.addEventListener('click', disconnectDevice);
+
+    // Home button
+    homeButton.addEventListener('click', (event) => {
+        document.getElementById("mainGrid").style.display = "block";
+        document.getElementById("logGrid").style.display = "none";
+        document.getElementById("settingsGrid").style.display = "none";
+    });
+
+    logButton.addEventListener('click', (event) => {
+        requestLogSummary();
+        document.getElementById("mainGrid").style.display = "none";
+        document.getElementById("logGrid").style.display = "block";
+        document.getElementById("settingsGrid").style.display = "none";
+    });
+
+    reloadButton.addEventListener('click', (event) => {
+        disconnectDevice();
+        setTimeout(function() {window.location.reload();}, 500);
+        
+    });
+
     // Write to the ESP32 LED Characteristic
-    //onButton.addEventListener('click', () => writeOnCharacteristic(1));
-    //offButton.addEventListener('click', () => writeOnCharacteristic(0));
-    testButton.addEventListener('click', () => test());
+    onButton.addEventListener('click', () => test(3));
+    offButton.addEventListener('click', () => shutdown());
+    //testButton.addEventListener('click', () => test(1));
+    testButton.addEventListener('click', () => checkTest());
     forgetButton.addEventListener('click', () => onForgetBluetoothDeviceButtonClick());
+
 
 
     function onForgetBluetoothDeviceButtonClick() {
@@ -455,21 +559,12 @@
     function isWebBluetoothEnabled() {
         if (!navigator.bluetooth) {
             console.log('Web Bluetooth API is not available in this browser!');
-            bleStateContainer.innerHTML = "Web Bluetooth API is not available in this browser/device!";
+            bleStateContainer.innerHTML = "Web Bluetooth API is not available";
+            bleStateContainer.style.color = "red";
             return false
         }
         console.log('Web Bluetooth API supported in this browser.');
         return true
-    }
-
-    function test() {
-        writeStringCharacteristic(NameCharacteristic, "New name 1");
-        
-        /* console.log('Getting existing permitted Bluetooth devices...');
-        navigator.bluetooth.getDevices()
-        .then(devices => {
-        console.log('> Got ' + devices.length + ' Bluetooth devices.');
-        }) */
     }
 
     function statusLog(message) {
@@ -479,11 +574,15 @@
     }
 
     var bleDevice;
-    var abortController;
+    //var abortController;
+    var abortControllers = new Array();
 
     // Onload, start by trying to connect to existing device
     async function startConnection() {
         statusLog("start");
+        
+        bleDevice = null;
+        deviceConnectionStarted = false;
         bleStateContainer.innerHTML = 'Connecting...';
         bleStateContainer.style.color = "#d66a1c";
         if (!isWebBluetoothEnabled()){ return; }
@@ -508,14 +607,17 @@
                 option.textContent = device.name;
                 devicesSelect.appendChild(option);
                 // Start a scan for each device before connecting to check that they're in range.
-                abortController = new AbortController();
+                let abortController = new AbortController();
+                abortControllers.push(abortController);
                 await device.watchAdvertisements({signal: abortController.signal});
                 device.addEventListener('advertisementreceived', async (evt) => {
                     // Stop the scan to conserve power on mobile devices.
                     abortController.abort();
                     clearTimeout(scanTimeout);
                     statusLog("Listener added: " + device.name);
-                    bleDevice = device;
+                    if (bleDevice == null) {
+                        bleDevice = device;
+                    }
                 });
                 device.addEventListener('advertisementreceived', connectToService);
             }
@@ -525,35 +627,45 @@
     }
 
     function scanTimeoutElapsed() {
-        try {
-            abortController.abort();        // Just in case it's still running
-        } catch {}
+        abortControllers.forEach(abortScan);
         statusLog("Timeout");
         bleStateContainer.innerHTML = 'Press Connect button';
         bleStateContainer.style.color = "#d13a30";
     }
 
+    function abortScan(abortController, index) {
+        try {
+            abortController.abort();        // Just in case it's still running
+        } catch {}
+    }
+
     // Manually connect to BLE Device 
     async function connectToDevice(){
-        try {
+        // try {
             statusLog('Initializing Bluetooth...');
+            deviceConnectionStarted = false;
             bleDevice = null;
             try {
                 abortController.abort();        // Just in case it's still running
             } catch {}
-            bleDevice = await navigator.bluetooth.requestDevice({ filters: [{namePrefix: deviceNamePrefix}], optionalServices: [bleService] });
+            let searchterm = deviceNamePrefix + searchBox.value;
+            console.log("Search for:", searchterm);
+            bleDevice = await navigator.bluetooth.requestDevice({ filters: [{namePrefix: searchterm}], optionalServices: [bleService] });
+            //bleDevice = await navigator.bluetooth.requestDevice({acceptAllDevices:true});
             statusLog('Device Selected:', bleDevice.name);
             bleStateContainer.innerHTML = 'Connecting...';
             bleStateContainer.style.color = "#d66a1c";
             bleDevice.addEventListener('gattservicedisconnected', onDisconnected);
             await connectToService();
-        } catch(error) {
+/*          } catch(error) {
             statusLog('Error: ', error);
-        }
+        } */
     }
 
     // Device found, connect to charactertistics
     async function connectToService() {
+        if (deviceConnectionStarted) {return;}      // Only connect to the first device found
+        deviceConnectionStarted = true;
         try {
             bleServer = await bleDevice.gatt.connect();
             statusLog("Connected to GATT Server");
@@ -563,13 +675,14 @@
             if(bleDevice == null) {
                 bleStateContainer.innerHTML = 'Connected';
             } else {
-                bleStateContainer.innerHTML = 'Connected to ' + bleDevice.name;
+                bleStateContainer.innerHTML = bleDevice.name;
                 setNameBox.value = bleDevice.name.replace(deviceNamePrefix, "");
             }
+            bluetoothChecker = setInterval(checkBluetooth,2000);
             bleStateContainer.style.color = "#24af37";
             const characteristics = await service.getCharacteristics();
             for(const characteristic of characteristics) {
-                console.log("Characteristic discovered:" + characteristic.uuid);
+                //console.log("Characteristic discovered:" + characteristic.uuid);
                 // Throws an error on Android if you do more than one startNotifications or readValue in this loop.
                 switch(characteristic.uuid) {
                     case sensorCharacteristic:
@@ -578,25 +691,32 @@
                         await characteristic.startNotifications();
                         // This works, but since it calls the callback anyway there is no need.
                         await characteristic.readValue().then(value => {
-                            console.log("Read value: ", value);
+                            //console.log("Read value: ", value);
                             const decodedValue = new TextDecoder().decode(value);
-                            console.log("Decoded value: ", decodedValue);
+                            //console.log("Decoded value: ", decodedValue);
                         })
                     break;
                     case RateCharacteristic:
-                        console.log("RateCharacteristic");
+                        //console.log("RateCharacteristic");
                         characteristic.addEventListener('characteristicvaluechanged', handleRateChange);
                         await characteristic.startNotifications();
                         // If there is a callback for this characteristic, there is no need to wait for the response here.
                         await characteristic.readValue();  
                     break;
-                    case ArrivalCharacteristic:
-                        console.log("ArrivalCharacteristic");
-                        characteristic.addEventListener('characteristicvaluechanged', handleArrivalChange);
+                    case SettingsCharacteristic:
+                        //console.log("SettingsCharacteristic");
+                        characteristic.addEventListener('characteristicvaluechanged', handleSettingsChange);
                         await characteristic.startNotifications();
                         // If there is a callback for this characteristic, there is no need to wait for the response here.
                         await characteristic.readValue();  
                     break;
+                    case StatusCharacteristic:
+                        //console.log("StatusCharacteristic");
+                        characteristic.addEventListener('characteristicvaluechanged', handleStatusChange);
+                        await characteristic.startNotifications(); 
+                    break;
+                    case NameCharacteristic:
+                        break;
                     default: console.log("Unknown characteristic: " + characteristic.uuid);
                 }
             }
@@ -617,19 +737,18 @@
 
     function handleCharacteristicChange(event){
         const newValueReceived = new TextDecoder().decode(event.target.value);
-        console.log("Characteristic value changed: ", newValueReceived);
         //retrievedValue.innerHTML = newValueReceived;
         //timestampContainer.innerHTML = getDateTime();
     }
 
     // Callback from RateCharacteristic
     function handleRateChange(event){
-        console.log("Rate changed");
         updateRate(event.target.value);
     }
     function updateRate(value) {
         const uintArr = new Uint8Array(value.buffer);
-        console.log(uintArr);
+        chaseArray = uintArr.slice();
+        colourArray = uintArr.slice();
         const mBPM = uintArr[0];
         upTimeRange.value = uintArr[1];
         onTimeRange.value = uintArr[2];
@@ -637,71 +756,371 @@
         bpmValue = mBPM * 4;
         bpmIndicator.innerHTML = mBPM;
         master.value = uintArr[4];
-    }
-
-    //Callback from ArrivalCharacteristic
-    function handleArrivalChange(event){
-        console.log("Arrival changed");
-        const uintArr = new Uint8Array(event.target.value.buffer);
-        console.log(uintArr);
-        arrivalDwellBox.value = uintArr[0];
-        arrivalOnBox.value = uintArr[1];
-    }
-
-/*     function writeOnCharacteristic(value){
-        if (bleServer && bleServer.connected) {
-            bleServiceFound.getCharacteristic(ledCharacteristic)
-            .then(characteristic => {
-                console.log("Found the LED characteristic: ", characteristic.uuid);
-                const data = new Uint8Array([value]);
-                return characteristic.writeValue(data);
-            })
-            .then(() => {
-                latestValueSent.innerHTML = value;
-                console.log("Value written to LEDcharacteristic:", value);
-            })
-            .catch(error => {
-                console.error("Error writing to the LED characteristic: ", error);
-            });
-        } else {
-            console.error ("Bluetooth is not connected. Cannot write to characteristic.")
-            window.alert("Bluetooth is not connected. Cannot write to characteristic. \n Connect to BLE first!")
+        colourStepTime.value = uintArr[5];
+        //fade% = uintArr[6];
+        let steps = uintArr[7];
+        for ( i = 0; i < 4; i++) {
+            let box = document.getElementById("colourBox" + (i + 1));
+            //console.log(i + " " + (uintArr[8+(i*3)] + uintArr[9+(i*3)] + uintArr[10+(i*3)]));
+            if(uintArr[8+(i*3)] + uintArr[9+(i*3)] + uintArr[10+(i*3)] == 0) {
+                box.style.backgroundColor = "";
+            } else {
+                box.style.backgroundColor = "rgb(" + uintArr[8+(i*3)] + "," + uintArr[9+(i*3)] + "," + uintArr[10+(i*3)] + ")";
+            }
         }
-    } */
+    }
 
+    //Callback from SettingsCharacteristic
+    function handleSettingsChange(event){
+        //console.log("Settings changed");
+        const uintArr = new Uint8Array(event.target.value.buffer);
+        arrivalDwellBox.value = uintArr[0];
+        arrivalOnBox.value = uintArr[1]; 
+        chargeLEDonBox.value = uintArr[2];
+        chargeLEDbrightBox.value = uintArr[3];
+    }
+
+    function test(req) {
+        //Max array size is 512 bytes
+        const uintArr = new Uint8Array(4);
+        uintArr[0] = 3;
+        uintArr[1] = req;
+        uintArr[2] = 1;
+        uintArr[3] = 4;
+        writeArrayCharacteristic(StatusCharacteristic, uintArr);
+    }
+
+    function requestLogSummary() {
+        const uintArr = new Uint8Array(4);
+        uintArr[0] = 3;
+        uintArr[1] = 1;
+        uintArr[2] = 1;
+        uintArr[3] = 4;
+        writeArrayCharacteristic(StatusCharacteristic, uintArr);
+    }
+
+    function requestDeviceDetails(id) {
+        const uintArr = new Uint8Array(4);
+        uintArr[0] = 3;
+        uintArr[1] = 3;
+        uintArr[2] = id;
+        uintArr[3] = 4;
+        writeArrayCharacteristic(StatusCharacteristic, uintArr);
+    }
+
+    function sendHide(hide) {
+        const uintArr = new Uint8Array(4);
+        uintArr[0] = 3;
+        uintArr[1] = 5;
+        uintArr[2] = hide;
+        uintArr[3] = 4;
+        writeArrayCharacteristic(StatusCharacteristic, uintArr);
+    }
+
+    function shutdown() {
+        if(confirm("Shutdown the light?")) {
+            test(4);
+        }
+    }
+
+    const DEVICE_LOG_SIZE = 100;
+    const DEVICE_NAME_LENGTH = 32;
+    const LOG_SUMMARY_ITEM_COUNT = 20;
+    const LOG_SUMMARY_ITEM_LENGTH = 20;
+
+    const dev = {
+        id: 0,
+        mac: [0],
+        timeSinceBoot: 0,
+        lastContact: 0,
+        status: 0,
+        lastUI: 0,
+        battery: 0,
+        name: "",
+        signal: [0],
+        curSignal: 0
+    }
+
+    var logs;
+    var devices = new Array(LOG_SUMMARY_ITEM_COUNT);
+    var logDisplay = new Map();
+
+    //Callback from statusCharacteristic
+    function handleStatusChange(event){
+        //console.log("Status changed");
+        const uintArr = new Uint8Array(event.target.value.buffer);
+        //console.log(uintArr);
+        if(uintArr[0] == 3 && uintArr[3] == 4) {
+            switch(uintArr[1]) {
+                case 1:     // Log
+                    //console.log(uintArr);
+                    readLogSummary(event.target.value.buffer);
+                    break;
+                case 2:     // Status
+                    //console.log("Battery:" + uintArr[4]);
+                    statusBar.innerHTML = "Battery: " + uintArr[4] + "% " + (uintArr[5] ? "Charging" : "");
+                    break;
+                case 3:     // Log
+                    readLogDetail(event.target.value.buffer);
+                    break;
+                default:
+            }
+        }
+    }
+
+    function readLogSummary(buffer) {
+        logs = new Array();
+        //logList.innerHTML = "";
+        let ls = new DataView(buffer);
+        let timestamp = ls.getUint32(4, true);
+        for (i = 0; i < LOG_SUMMARY_ITEM_COUNT; i++) {
+            let lg = buffer.slice( i * LOG_SUMMARY_ITEM_LENGTH + 8,  (i + 1) * LOG_SUMMARY_ITEM_LENGTH + 8)
+            let dv = new DataView(lg);
+            const log = {
+                id: dv.getUint8(0),
+                mac: toHexString(new Uint8Array(lg.slice(1,7))),
+                lastContact: dv.getUint32(8, true),
+                lastUI: dv.getUint32(12, true),
+                status: dv.getUint8(16),
+                battery: dv.getUint8(17),
+                signal: dv.getUint8(18)
+            }
+            logs.push(log);
+            if (log.id > 0) {                                          // We have a device
+                displayLogEntry(log, timestamp);
+            }
+        }
+        //console.log(timestamp, logs);
+    }
+
+    function displayLogEntry(log, timestamp) {
+        const listItem = logDisplay.get(log.id);
+        //console.log(log.id, listItem);
+        //console.log(logDisplay);
+        if(listItem == null) {
+            //console.log("create log");
+            createLogEntry(log, timestamp);
+        } else {
+            //console.log("update log");
+            updateLogEntry(listItem, log, timestamp);
+        }
+    }
+
+    function updateLogEntry(listItem, log, timestamp) {
+        //const divName = document.getElementById("itemName" + log.id);
+        const coll = listItem.childNodes;
+        //console.log(coll);
+        const divContact= coll[1];
+        const divBatt = coll[2];
+        const divSignal = coll[3];
+        const divStatus = coll[4];
+        let tm = timestamp - log.lastContact;
+        divContact.innerText = new Date(tm * 1000).toISOString().substring(14, 19)
+        if(tm < 10) {divContact.setAttribute("style", "background-color: green; width:35px")}
+        divBatt.innerText = log.battery;
+        if(log.battery < 30) { divBatt.setAttribute("style", "background-color: red");}
+        if(log.battery > 80) { divBatt.setAttribute("style", "background-color: green");}
+        divSignal.innerText = log.signal;
+        let stat = "";
+        if(log.status & 1) { 
+            divStatus.setAttribute("style", "background-color: green");
+            stat += "I";
+        }
+        if(log.status & 2) { stat += "A"}
+        if(log.status & 4) { stat += "R"}
+        if(selectedDevice == log.id) {
+            requestDeviceDetails(log.id);
+        }
+    }
+        
+    function createLogEntry(log, timestamp) {
+        const listItem = document.createElement("li");
+        listItem.setAttribute("id", "device" + log.id);
+        listItem.setAttribute("class", "log-listitem");
+        listItem.setAttribute("onClick", "deviceClicked(" + log.id + ")");
+        //listItem.innerText = log.mac;
+        //const divMac = document.createElement("div");
+        const divName = document.createElement("div");
+        const divContact= document.createElement("div");
+        const divSignal = document.createElement("div");
+        const divBatt = document.createElement("div");
+        const divStatus = document.createElement("div");
+        divName.setAttribute("id", "itemName" + log.id);
+        divName.setAttribute("class", "log-name");
+        divName.innerText = "xxxx";
+        listItem.appendChild(divName)
+        //divMac.setAttribute("id", "itemMac" + log.id);
+        //divMac.setAttribute("class", "log-item");
+        //divMac.innerText = log.mac;
+        //listItem.appendChild(divMac)
+        divContact.setAttribute("id", "itemContact" + log.id);
+        divContact.setAttribute("class", "log-item");
+        divContact.setAttribute("style", "width:35px");
+        let tm = timestamp - log.lastContact;
+        divContact.innerText = new Date(tm * 1000).toISOString().substring(14, 19)
+        if(tm < 10) {divContact.setAttribute("style", "background-color: green; width:35px")}
+        listItem.appendChild(divContact);
+        divBatt.setAttribute("id", "itemBatt" + log.id);
+        divBatt.setAttribute("class", "log-item");
+        divBatt.innerText = log.battery;
+        if(log.battery < 30) { divBatt.setAttribute("style", "background-color: red");}
+        if(log.battery > 80) { divBatt.setAttribute("style", "background-color: green");}
+        listItem.appendChild(divBatt);
+        divSignal.setAttribute("id", "itemSignal" + log.id);
+        divSignal.setAttribute("class", "log-item");
+        divSignal.innerText = log.signal;
+        listItem.appendChild(divSignal);
+        divStatus.setAttribute("id", "itemStatus" + log.id);
+        divStatus.setAttribute("class", "log-item");
+        let stat = "";
+        if(log.status & 1) { 
+            divStatus.setAttribute("style", "background-color: green");
+            stat += "I";
+        }
+        if(log.status & 2) { stat += "A"}
+        if(log.status & 4) { stat += "R"}
+        //divStatus.innerText = log.status;
+        divStatus.innerText = stat;
+        listItem.appendChild(divStatus);
+        logList.appendChild(listItem);
+        logDisplay.set(log.id, listItem);
+        if(devices[log.id] == null) {
+            requestDeviceDetails(log.id)
+        }
+        else {
+            const nameTag = document.getElementById("itemName" + dev.id);
+            if(nameTag != null) {
+                nameTag.innerText = dev.name;
+            }
+        }
+    }
+
+    var selectedDevice = 0;
+
+    function deviceClicked(id) {
+        const list = document.getElementsByClassName("log-listitem-Selected");
+        const listItem = document.getElementById("device" + id);
+        for (let i = 0; i < list.length; i++) {
+            list[i].setAttribute("class", "log-listitem");
+        }
+        if(id == selectedDevice) {                                              // Clicked the selected device
+            chartCanvas.setAttribute("style", "display: none");
+            selectedDevice = 0;
+        } else {
+            listItem.setAttribute("class", "log-listitem-Selected");
+            chartCanvas.setAttribute("style", "display: block");
+            selectedDevice = id;
+        }
+    }
+
+    function toHexString(byteArray) {
+        return Array.from(byteArray, function(byte) {
+            return ('0' + (byte & 0xFF).toString(16)).slice(-2);
+        }).join(':')
+    }
+
+    function readLogDetail(uintArr) {
+        //console.log("read detail");
+        let dv = new DataView(uintArr);
+        dev.mac = uintArr.slice(5, 11);
+        dev.id = dv.getUint8(4);
+        dev.timeSinceBoot = dv.getUint32(12,true);
+        dev.lastContact = dv.getUint32(16,true);
+        dev.lastUI = dv.getUint32(20,true);
+        dev.status = dv.getUint8(24);
+        dev.battery = dv.getUint8(25);
+        const name = new TextDecoder().decode(uintArr.slice(26, 26 + DEVICE_NAME_LENGTH));
+        dev.name = name.substring(0, name.indexOf('\0')).replace(deviceNamePrefix, "");
+        dev.curSignal = dv.getUint8(26 + DEVICE_NAME_LENGTH)
+        dev.signal = new Uint8Array(uintArr.slice(27 + DEVICE_NAME_LENGTH, 127 + DEVICE_NAME_LENGTH));
+        devices[dev.id] = dev;
+        const nameTag = document.getElementById("itemName" + dev.id);
+        if(nameTag != null) {
+            nameTag.innerText = dev.name;
+        }
+        //console.log(dev.signal);
+        drawRSSIchart(dev.id);
+    }
+
+    function drawRSSIchart(id) {
+        // Clear the chart
+        ctx.save();
+        ctx.setTransform(1, 0, 0, 1, 0, 0);         // Use the identity matrix while clearing the canvas
+        ctx.clearRect(0, 0, chartCanvas.width, chartCanvas.height);         
+        ctx.restore();
+        ctx.beginPath();
+        let logStart = devices[id].curSignal + 1;
+        let x = 0;
+        if (logStart >= 100) {logStart = 0};
+        ctx.moveTo(x, devices[id].signal[logStart]);
+        //console.log("Crursignal:", devices[id].curSignal);
+        for(i = logStart; i < 100; i++) {
+            //console.log( x, i, devices[id].signal[i]);
+            ctx.lineTo(x, devices[id].signal[i]);
+            ctx.strokeStyle = "yellow";
+            ctx.stroke();
+            x++;
+        }
+        ctx.moveTo(x, devices[id].signal[0]);
+        for(i = 0; i < logStart - 1; i++) {
+            //console.log( x, i, devices[id].signal[i]);
+            ctx.lineTo(x, devices[id].signal[i]);
+            ctx.stroke();
+            x++;
+        }
+    }
+
+    var writeBusy = false;
+    var queuedCharacteristic = null;
+    var queuedValue = null;
     function writeArrayCharacteristic(characteristic, value){
+        if (writeBusy) { 
+            queuedCharacteristic = characteristic;
+            queuedValue = value;
+            return false;
+        } 
+        writeBusy = true;
+        const writeTimeout = setTimeout(writeTimeoutElapsed, 500);
         if (bleServer && bleServer.connected) {
             bleServiceFound.getCharacteristic(characteristic)
             .then(characteristic => {
-                console.log("Found the Array characteristic: ", characteristic.uuid);
+                //console.log("Found the Array characteristic: ", characteristic.uuid);
                 return characteristic.writeValue(value);
             })
             .then(() => {
-                latestValueSent.innerHTML = value;
-                console.log("Value written to Array characteristic:", value);
+                //console.log("Value written to Array characteristic:", value);
             })
             .catch(error => {
-                console.error("Error writing to the Array characteristic: ", error);
+                //console.error("Error writing to the Array characteristic: ", error);
             });
         } else {
             console.error ("Bluetooth is not connected. Cannot write to characteristic.")
             //window.alert("Bluetooth is not connected. Cannot write to characteristic. \n Connect to BLE first!")
         }
+        return true;
+    }
+
+    function writeTimeoutElapsed() {
+        writeBusy = false;
+        if (queuedCharacteristic != null) {
+            writeArrayCharacteristic(queuedCharacteristic, queuedValue);
+        }
+        queuedCharacteristic = null;
+        queuedValue = null;
     }
 
     function writeStringCharacteristic(characteristic, value){
         if (bleServer && bleServer.connected) {
             bleServiceFound.getCharacteristic(characteristic)
             .then(characteristic => {
-                console.log("Found the characteristic: ", characteristic.uuid);
-                console.log("Write: ", value);
+                //console.log("Found the characteristic: ", characteristic.uuid);
+                //console.log("Write: ", value);
                 var enc = new TextEncoder(); // always utf-8
                 const data = enc.encode(value);
                 return characteristic.writeValue(data);
             })
             .then(() => {
-                latestValueSent.innerHTML = value;
-                console.log("Value written to string characteristic:", value);
+                //console.log("Value written to string characteristic:", value);
             })
             .catch(error => {
                 console.error("Error writing to the string characteristic: ", error);
@@ -725,7 +1144,6 @@
                         console.log("Device Disconnected");
                         bleStateContainer.innerHTML = "Disconnected";
                         bleStateContainer.style.color = "#d13a30";
-
                     })
                     .catch(error => {
                         console.log("An error occurred:", error);
@@ -736,7 +1154,22 @@
         } else {
             // Throw an error if Bluetooth is not connected
             console.error("Bluetooth is not connected.");
-            window.alert("Bluetooth is not connected.")
+            //window.alert("Bluetooth is not connected.")
+        }
+    }
+
+    function checkTest() {
+        setInterval(checkBluetooth,2000);
+    }
+
+    function checkBluetooth() {
+        if (bleServer && bleServer.connected) {
+            //console.log("Connected"); 
+        } else {
+            //console.log("Disconnected"); 
+            bleStateContainer.innerHTML = "Disconnected";
+            bleStateContainer.style.color = "#d13a30";
+            clearInterval(bluetoothChecker);
         }
     }
 
@@ -794,7 +1227,9 @@ slider.addEventListener('mousedown', (event) => {
         sendBPM();
     });
     slider.addEventListener('mouseout', (event) => {
-        sendBPM();
+        if (mousedown) {
+            sendBPM();
+        }
         //mousedown = false;
     });
     slider.addEventListener('mousemove', (event) => {
@@ -829,8 +1264,8 @@ slider.addEventListener('mousedown', (event) => {
         mouseX = clientX;
         sliderX+=moveX
         bpmValue+=moveX;
-        if(bpmValue <= 1) {
-            bpmValue = 1;
+        if(bpmValue < 0) {
+            bpmValue = 0;
             sliderX = 0;
         }
         if(bpmValue >= 960) {
@@ -844,13 +1279,11 @@ slider.addEventListener('mousedown', (event) => {
         if(sliderX <= -25) {
             sliderX += 25;
         }
-        console.log("move " + sliderX);
         knob.style.left = sliderX + "px"; 
     }
 
     function setDeviceName() {
         const newName = setNameBox.value;
-        console.log("Set name:" + newName);
         writeStringCharacteristic(NameCharacteristic, newName);
     }
 
@@ -867,24 +1300,63 @@ slider.addEventListener('mousedown', (event) => {
         sendBPM();
     }
 
-    function setArrivalTime() {
-        const uintArr = new Uint8Array([arrivalDwellBox.value, arrivalOnBox.value]);
-        writeArrayCharacteristic(ArrivalCharacteristic, uintArr);
+    function setSettings() {
+        const uintArr = new Uint8Array([arrivalDwellBox.value, arrivalOnBox.value, chargeLEDonBox.value, chargeLEDbrightBox.value]);
+        writeArrayCharacteristic(SettingsCharacteristic, uintArr);
     }
 
     function setColourBox(num) {
-        let box = "colourBox" + num;
-        document.getElementById(box).style.backgroundColor = rgbString;
-        //chaseArray[4] = master.value;
-        chaseArray[5] = colourStepTime.value;
-        chaseArray[6] = 255; // Fade percentage
-        chaseArray[4 + num * 3] = rgbArray[0];
-        chaseArray[5 + num * 3] = rgbArray[1];
-        chaseArray[6 + num * 3] = rgbArray[2];
+        //console.log("set " + num);
+        let box = document.getElementById("colourBox" + num);
+        if(box.style.backgroundColor == "") { 
+            box.style.backgroundColor = rgbString;
+            //colourArray[4] = master.value;
+            colourArray[5] = colourStepTime.value;
+            colourArray[6] = 255; // Fade percentage
+            //colourArray[7] = steps
+            colourArray[5 + num * 3] = rgbArray[0];
+            colourArray[6 + num * 3] = rgbArray[1];
+            colourArray[7 + num * 3] = rgbArray[2];
+        } else {
+            if (num < 4) {
+                let box2 = document.getElementById("colourBox" + (num + 1));
+                if(box2.style.backgroundColor != "") { 
+                    return;
+                }
+            }
+            box.style.backgroundColor =  "";
+            colourArray[5 + num * 3] = 0;
+            colourArray[6 + num * 3] = 0;
+            colourArray[7 + num * 3] = 0;
+        }
+        
     }
 
-    function setColourChase() {
 
+    function setColourChase() {
+        for ( i = 0; i < 4; i++) {
+            let box = document.getElementById("colourBox" + (i + 1));
+            if(box.style.backgroundColor == "") { break;}
+        }
+        chaseArray[4] = master.value;
+        chaseArray[5] = colourStepTime.value;
+        chaseArray[6] = 255; // Fade percentage
+        chaseArray[7] = i; //steps
+        for( i = 8; i < chaseArray.length; i++) {
+            chaseArray[i] = colourArray[i];
+        }
+        sendBPM();
+    }
+
+    function setSingleColourChase() {
+        chaseArray[4] = master.value;
+        chaseArray[5] = colourStepTime.value;
+        chaseArray[6] = 255; // Fade percentage
+        chaseArray[7] = 1; //steps
+        chaseArray[8] = rgbArray[0];
+        chaseArray[9] = rgbArray[1];
+        chaseArray[10] = rgbArray[2];
+        sendBPM();
     }
 
     function changeMaster(value) {
