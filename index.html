@@ -813,6 +813,9 @@
     }
 
     function sendHide(hide) {
+        if(hide > 0) {
+            if(!confirm("Stop WiFi Broadcast?")) {return;}
+        }
         const uintArr = new Uint8Array(4);
         uintArr[0] = 3;
         uintArr[1] = 5;
